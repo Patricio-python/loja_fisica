@@ -1,0 +1,22 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS "cliente" (
+  "idCliente" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "nome" VARCHAR(45) NOT NULL,
+  "sobrenome" VARCHAR(45) NOT NULL,
+  "cpf" VARCHAR(15) NOT NULL DEFAULT '000.000.000-00',
+  "telefone" VARCHAR(15) NOT NULL DEFAULT '(91)9XXX-XXXX',
+  "endereco" VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "pedido" (
+  "idPedido" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "servico" VARCHAR(50) NOT NULL,
+  "descricao" VARCHAR(250) DEFAULT NULL,
+  "valor" FLOAT NOT NULL,
+  "data_entrada" DATETIME NOT NULL,
+  "data_saida" DATETIME NOT NULL,
+  "idCliente" INTEGER NOT NULL,
+  FOREIGN KEY ("idCliente") REFERENCES "cliente" ("idCliente") ON DELETE CASCADE
+);
+
