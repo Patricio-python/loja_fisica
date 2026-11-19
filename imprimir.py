@@ -1,4 +1,4 @@
-import sqlite3
+from sqlcipher3 import dbapi2 as sqlite3
 import os
 from datetime import datetime, timedelta
 from reportlab.lib.pagesizes import letter
@@ -11,7 +11,8 @@ def gerar_pdf_cliente(id_cliente):
     # 1. Conectar ao Banco de Dados e buscar as informações
     conn = sqlite3.connect('ourives.db') 
     cursor = conn.cursor()
-    
+    cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
+
     # Buscar dados do cliente
     cursor.execute("SELECT nome, sobrenome, cpf, telefone, endereco FROM cliente WHERE idCliente = ?", (id_cliente,))
     cliente = cursor.fetchone()
@@ -143,6 +144,7 @@ def gerar_pdf_via_cliente(id_pedido_busca, pasta_saida='Via Pedidos'):
     # Conexão com o banco de dados fornecido
     conn = sqlite3.connect('ourives.db')
     cursor = conn.cursor()
+    cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
     
     # Query relacionando a tabela pedido com a tabela cliente
     cursor.execute('''
@@ -252,6 +254,7 @@ def gerar_relatorio_ultimos_30_dias(pasta_saida='Relatorio 30 Dias'):
     # Conexão com o banco de dados
     conn = sqlite3.connect("ourives.db")
     cursor = conn.cursor()
+    cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
     
     # 1. Definir o intervalo de datas (Últimos 30 dias a partir de hoje)
     hoje = datetime.now()
