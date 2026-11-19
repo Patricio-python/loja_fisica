@@ -5,7 +5,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
-import sqlite3
+from sqlcipher3 import dbapi2 as sqlite3
 import sys,os
 import imprimir as pc
 
@@ -14,6 +14,7 @@ import imprimir as pc
 # ============================================================
 conn = sqlite3.connect('ourives.db')
 cursor = conn.cursor()
+cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
     
 try:
 #Abre e lê o arquivo .sql
@@ -109,6 +110,7 @@ class Cliente():
         try:
             conn = sqlite3.connect('ourives.db')
             cursor = conn.cursor()
+            cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
 
             cursor.execute("SELECT cpf FROM cliente WHERE cpf = ?",(cadastrar.cpf,))
 
@@ -148,6 +150,7 @@ class Cliente():
         # Conecta ao banco de dados ouves.db
         conexao = sqlite3.connect("ourives.db")
         cursor = conexao.cursor()
+        cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
         try:
             # Consulta SQL usando LIKE para filtrar pelo campo 'nome'
             # O uso de '%' permite que encontre o nome em qualquer parte do texto digitado
@@ -215,6 +218,7 @@ class Cliente():
             try:
                 conn = sqlite3.connect('ourives.db')
                 cursor = conn.cursor()
+                cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
 
                 # Atualiza cliente
                 cursor.execute("""
@@ -256,6 +260,7 @@ class Servico():
 
         conn = sqlite3.connect('ourives.db')
         cursor = conn.cursor()
+        cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
 
         try:
             cursor.execute("""
@@ -269,7 +274,7 @@ class Servico():
             QtWidgets.QMessageBox.warning(tela, "Atenção","CPF não encontrado!")
             return
         id=resultado
-        print(id)
+        
         if id==None:
             
             QtWidgets.QMessageBox.warning(tela, "Atenção","CPF obrigatório!")
@@ -279,6 +284,7 @@ class Servico():
             id=resultado[0]
             conn = sqlite3.connect('ourives.db')
             cursor = conn.cursor()
+            cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
 
             # 1️⃣ Inserir Serviço
             cursor.execute("""
@@ -298,6 +304,12 @@ class Servico():
             cursor.close()
             conn.close()
 
+        tela.serv_cad_servico_txt.clear()
+        tela.serv_cad_descricao_txt.clear()
+        tela.serv_cad_valor_txt.clear()
+        tela.serv_cad_saida_date_edit.setDate(QDate.currentDate())
+        tela.serv_cad_cpf_txt.clear()
+
     def search():
         
         # Obtém o texto digitado na Line Edit
@@ -306,6 +318,8 @@ class Servico():
         # Conecta ao banco de dados ouves.db
         conexao = sqlite3.connect("ourives.db")
         cursor = conexao.cursor()
+        cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
+
         try:
             # Consulta SQL usando LIKE para filtrar pelo campo 'nome'
             # O uso de '%' permite que encontre o nome em qualquer parte do texto digitado
@@ -364,6 +378,7 @@ class Servico():
             try:
                 conn = sqlite3.connect('ourives.db')
                 cursor = conn.cursor()
+                cursor.execute("PRAGMA key = 'P@s5w0rD.!2EfS';")
 
                 # Atualiza Serviço
                 cursor.execute("""
